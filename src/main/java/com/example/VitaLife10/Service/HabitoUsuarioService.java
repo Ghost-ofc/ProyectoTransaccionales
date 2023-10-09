@@ -1,0 +1,53 @@
+package com.example.VitaLife10.Service;
+
+import com.example.VitaLife10.Metodos.HabitoUsuarioRequest;
+import com.example.VitaLife10.Repository.HabitoUsuarioRepository;
+import com.example.VitaLife10.Repository.UsuarioRepository;
+import com.example.VitaLife10.entity.HabitoUsuario;
+import com.example.VitaLife10.entity.Usuario;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
+
+import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Optional;
+
+@Service
+public class HabitoUsuarioService {
+
+    private final HabitoUsuarioRepository habitoUsuarioRepository;
+
+    private final UsuarioRepository usuarioRepository;
+
+    @Autowired
+    public HabitoUsuarioService(HabitoUsuarioRepository habitoUsuarioRepository, UsuarioRepository usuarioRepository){
+        this.habitoUsuarioRepository = habitoUsuarioRepository;
+        this.usuarioRepository = usuarioRepository;
+    }
+
+
+    public List<HabitoUsuario> verTodosHabitos(){
+        return habitoUsuarioRepository.findAll();
+    }
+
+    public HabitoUsuario crearHabitoUsuario(HabitoUsuarioRequest request) {
+        // Busca al usuario por nombre de usuario
+        Optional<Usuario> usuarioOptional = usuarioRepository.findByNombreUsuario(request.getNombreUsuario());
+        if (usuarioOptional.isPresent()) {
+            Usuario usuario = usuarioOptional.get();
+
+            // Crea un nuevo hábito de usuario y asigna el usuario
+            HabitoUsuario habitoUsuario = new HabitoUsuario();
+            habitoUsuario.setNombre(request.getNombre());
+            habitoUsuario.setGrupo(request.isGrupo());
+            habitoUsuario.setUsuario(usuario);
+
+            // Guarda el hábito de usuario en la base de datos
+            return habitoUsuarioRepository.save(habitoUsuario);
+        } else {
+            throw new NoSuchElementException("No se encontró un usuario con nombre de usuario: " + request.getNombreUsuario());
+        }
+    }
+
+}

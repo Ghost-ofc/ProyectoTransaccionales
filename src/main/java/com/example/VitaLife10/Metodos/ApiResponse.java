@@ -1,4 +1,6 @@
-package com.example.VitaLife10.entity;
+package com.example.VitaLife10.Metodos;
+
+import com.example.VitaLife10.entity.Usuario;
 
 public class ApiResponse {
 
