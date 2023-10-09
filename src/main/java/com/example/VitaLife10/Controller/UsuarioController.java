@@ -1,14 +1,13 @@
 package com.example.VitaLife10.Controller;
 
 import com.example.VitaLife10.Service.UsuarioService;
-import com.example.VitaLife10.entity.ApiResponse;
+import com.example.VitaLife10.Metodos.ApiResponse;
 import com.example.VitaLife10.entity.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/usuarios")
