@@ -23,12 +23,14 @@ public class UsuarioService {
 
     public Usuario obtenerUsuarioPorUsername(String nombreUsuario) {
         Optional<Usuario> usuarioOptional = usuarioRepository.findByNombreUsuario(nombreUsuario);
+
         if (usuarioOptional.isPresent()) {
             Usuario usuario = usuarioOptional.get();
             return usuario;
         }
         return null;
     }
+
 
     public Usuario obtenerUsuarioPorId(Long id) {
         Optional<Usuario> usuarioOptional = usuarioRepository.findById(id);
@@ -62,4 +64,17 @@ public class UsuarioService {
             return false;
         }
     }
+
+    public Usuario verPuntosPorUsername(String nombreUsuario){
+        Optional<Usuario> puntosUs = usuarioRepository.findByNombreUsuario(nombreUsuario);
+        if (puntosUs.isPresent()){
+            Usuario usuario = puntosUs.get();
+            return usuario;
+        }
+        return null;
+    }
+
+
+
+
 }

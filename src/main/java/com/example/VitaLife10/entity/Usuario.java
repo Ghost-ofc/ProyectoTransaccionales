@@ -8,7 +8,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.sql.Blob;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,11 +19,11 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Usuario {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_usuario")
     private Long id;
-
     @Column(name = "nombre_usuario")
     private String nombreUsuario;
     @Column(name = "passwd")
@@ -42,6 +42,7 @@ public class Usuario {
     )
     @JsonIgnoreProperties("usuarios")
     private List<Titulo> titulos = new ArrayList<>();
+
 
     public Long getId() {
         return id;
@@ -90,4 +91,5 @@ public class Usuario {
     public void setTitulos(List<Titulo> titulos) {
         this.titulos = titulos;
     }
+
 }

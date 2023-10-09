@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/usuarios")
@@ -50,6 +51,7 @@ public class UsuarioController {
         }
     }
 
+
     //Se busca a todos los usuarios mediante un metodo GET
     @GetMapping("/registrar")
     public ResponseEntity<List<Usuario>> obtenerTodosLosUsuarios() {
@@ -74,5 +76,22 @@ public class UsuarioController {
             return new ResponseEntity<>(respuesta, HttpStatus.NOT_FOUND);
         }
     }
+
+    @GetMapping("/verPuntos/{nombreUsuario}")
+    public ResponseEntity<ApiResponse> verPuntosPorUsername(@PathVariable String nombreUsuario){
+        Usuario puntosUse = usuarioService.verPuntosPorUsername(nombreUsuario);
+
+        if(puntosUse != null){
+            String mensaje = "Puntos del usuario: " + puntosUse.getPuntos();
+            ApiResponse respuesta = new ApiResponse(mensaje, null);
+            return new ResponseEntity<>(respuesta, HttpStatus.OK);
+        }
+        else{
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+
+
 }
 
