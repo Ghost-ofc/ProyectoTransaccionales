@@ -43,6 +43,10 @@ public class Usuario {
     @JsonIgnoreProperties("usuarios")
     private List<Titulo> titulos = new ArrayList<>();
 
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonIgnoreProperties("usuario")
+    private List<HabitoUsuario> habitosUsuario = new ArrayList<>();
+
 
     public Long getId() {
         return id;
@@ -92,4 +96,11 @@ public class Usuario {
         this.titulos = titulos;
     }
 
+    public List<HabitoUsuario> getHabitosUsuario() {
+        return habitosUsuario;
+    }
+
+    public void setHabitosUsuario(List<HabitoUsuario> habitosUsuario) {
+        this.habitosUsuario = habitosUsuario;
+    }
 }
