@@ -1,14 +1,14 @@
 package com.example.VitaLife10.Controller;
 
 import com.example.VitaLife10.Service.UsuarioService;
-import com.example.VitaLife10.entity.ApiResponse;
+import com.example.VitaLife10.Metodos.ApiResponse;
 import com.example.VitaLife10.entity.Usuario;
+import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/usuarios")
@@ -53,7 +53,7 @@ public class UsuarioController {
 
 
     //Se busca a todos los usuarios mediante un metodo GET
-    @GetMapping("/registrar")
+    @GetMapping("/vertodos")
     public ResponseEntity<List<Usuario>> obtenerTodosLosUsuarios() {
         List<Usuario> usuarios = usuarioService.obtenerTodosLosUsuarios();
         return new ResponseEntity<>(usuarios, HttpStatus.OK);
@@ -91,6 +91,19 @@ public class UsuarioController {
         }
     }
 
+    @PostMapping("/login")
+    public ResponseEntity<ApiResponse> login(@RequestParam String nombreUsuario, @RequestParam String passwd) {
+        Usuario usuario = usuarioService.verificarCredenciales(nombreUsuario, passwd);
+
+        if (usuario != null) {
+            String mensaje = "Credenciales validas: " + usuario.getNombreUsuario();
+            ApiResponse res = new ApiResponse(mensaje, null);
+            return new ResponseEntity<>(res, HttpStatus.OK);
+        } else {
+            // Las credenciales son incorrectas, devuelve un HttpStatus adecuado (por ejemplo, HttpStatus.UNAUTHORIZED)
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+    }
 
 
 }

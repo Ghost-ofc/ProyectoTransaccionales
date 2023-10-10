@@ -43,6 +43,19 @@ public class Usuario {
     @JsonIgnoreProperties("usuarios")
     private List<Titulo> titulos = new ArrayList<>();
 
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonIgnoreProperties("usuario")
+    private List<HabitoUsuario> habitosUsuario = new ArrayList<>();
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "usuario_habitos_sistema",
+            joinColumns = @JoinColumn(name = "usuario_id"),
+            inverseJoinColumns = @JoinColumn(name = "habito_sistema_id")
+    )
+    @JsonIgnoreProperties("usuarioH")
+    private List<HabitoSistema> habitosSistema = new ArrayList<>();
+
 
     public Long getId() {
         return id;
@@ -92,4 +105,19 @@ public class Usuario {
         this.titulos = titulos;
     }
 
+    public List<HabitoUsuario> getHabitosUsuario() {
+        return habitosUsuario;
+    }
+
+    public void setHabitosUsuario(List<HabitoUsuario> habitosUsuario) {
+        this.habitosUsuario = habitosUsuario;
+    }
+
+    public List<HabitoSistema> getHabitosSistema() {
+        return habitosSistema;
+    }
+
+    public void setHabitosSistema(List<HabitoSistema> habitosSistema) {
+        this.habitosSistema = habitosSistema;
+    }
 }
