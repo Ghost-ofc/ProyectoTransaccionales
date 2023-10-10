@@ -74,7 +74,22 @@ public class UsuarioService {
         return null;
     }
 
+    public Usuario verificarCredenciales(String nombreUsuario, String passwd) {
 
+        Optional<Usuario> optionalUsuario = usuarioRepository.findByNombreUsuario(nombreUsuario);
+
+        if (optionalUsuario.isPresent()) {
+            Usuario usuario = optionalUsuario.get();
+            // Verificar si la contraseña coincide
+            if (usuario.getPasswd().equals(passwd)) {
+                // Las credenciales son válidas
+                return usuario;
+            }
+        }
+
+        // Si no se encontró el usuario o las credenciales no coinciden, devuelve null
+        return null;
+    }
 
 
 }

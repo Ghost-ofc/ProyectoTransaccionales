@@ -2,9 +2,7 @@ package com.example.VitaLife10.Controller;
 
 
 import com.example.VitaLife10.Service.TituloService;
-import com.example.VitaLife10.entity.ApiResponse;
 import com.example.VitaLife10.entity.Titulo;
-import com.example.VitaLife10.entity.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
