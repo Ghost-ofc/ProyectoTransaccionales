@@ -80,12 +80,13 @@ public class UsuarioService {
         }
     }
 
-    public Usuario verPuntos(Long id){
+    public Integer verPuntos(Long id){
         Optional<Usuario> puntos = usuarioRepository.findById(id);
 
         if (puntos.isPresent()){
             Usuario punto = puntos.get();
-            return punto;
+            Integer si = punto.getPuntos();
+            return si;
         }else {
             throw new NoResultException("Usuario no encontrado por ID: " + id);
         }

@@ -65,8 +65,8 @@ public class UsuarioController {
     @GetMapping("/verpuntos/{id}")
     public ResponseEntity<?> verPuntos(@PathVariable Long id){
         try{
-            Usuario punto = usuarioService.verPuntos(id);
-            return new ResponseEntity<>(punto.getPuntos(), HttpStatus.OK);
+            Integer punto = usuarioService.verPuntos(id);
+            return new ResponseEntity<>(punto, HttpStatus.OK);
         }catch (NoResultException e){
             return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
         }
