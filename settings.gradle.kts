@@ -1,1 +1,1 @@
-rootProject.name = "VitaLife"
+rootProject.name = "Vitalife"

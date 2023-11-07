@@ -1,10 +1,10 @@
-package com.example.VitaLife;
+package com.Vitalife.Vitalife;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class VitaLifeApplicationTests {
+class VitalifeApplicationTests {
 
 	@Test
 	void contextLoads() {
