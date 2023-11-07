@@ -1,13 +1,14 @@
-package com.example.VitaLife;
+package com.Vitalife.Vitalife;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class VitaLifeApplication {
+public class VitalifeApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(VitaLifeApplication.class, args);
+		SpringApplication.run(VitalifeApplication.class, args);
+		System.out.println("Aplicacion en ejecucion");
 	}
 
 }

@@ -1,0 +1,135 @@
+package com.Vitalife.Vitalife.Service;
+
+import com.Vitalife.Vitalife.DTO.HabitosDTO;
+import com.Vitalife.Vitalife.Repository.HabitosRepository;
+import com.Vitalife.Vitalife.Repository.TitulosRepository;
+import com.Vitalife.Vitalife.entity.Habitos;
+import com.Vitalife.Vitalife.entity.Titulos;
+import com.Vitalife.Vitalife.entity.Usuario;
+import jakarta.persistence.EntityNotFoundException;
+import jakarta.persistence.NoResultException;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
+@Service
+public class HabitosService {
+
+    private final HabitosRepository habitosRepository;
+    private final TitulosRepository titulosRepository;
+
+    public HabitosService(HabitosRepository habitosRepository, TitulosRepository titulosRepository) {
+        this.habitosRepository = habitosRepository;
+        this.titulosRepository = titulosRepository;
+    }
+
+    public Habitos agregarHabito(Habitos habitos) {
+        return habitosRepository.save(habitos);
+
+    }
+
+    public List<Habitos> vetTodosHabitos(){
+        List<Habitos> verto = habitosRepository.findAll();
+        return verto;
+    }
+
+    public HabitosDTO verHabitos(Long id) {
+        Optional<Habitos> habit = habitosRepository.findById(id);
+
+        if (habit.isPresent()) {
+            HabitosDTO si = new HabitosDTO().toDTO(habit.get());
+            return si;
+        } else {
+            throw new NoResultException("No se econtro el Habito por ID: " + id);
+        }
+    }
+
+    public List<Habitos> verHabitosPersonalizados() {
+        List<Habitos> habitos = habitosRepository.findAll();
+        if (!habitos.isEmpty()) {
+            List<Habitos> personalizado = habitos.stream()
+                    .filter(habitos1 -> "Personalizado".equals(habitos1.getTipohabito()))
+                    .collect(Collectors.toList());
+            if (personalizado.isEmpty()) {
+                throw new NoResultException("No se encontraron hábitos personalizados.");
+            }
+            return personalizado;
+        }else {
+            throw new NoResultException("No se econontraron Habitos");
+        }
+    }
+
+    public List<Habitos> verHabitosSistema() {
+        List<Habitos> habitosistema = habitosRepository.findAll();
+        if (!habitosistema.isEmpty()) {
+            List<Habitos> personalizado = habitosistema.stream()
+                    .filter(habitos1 -> "Sistema".equals(habitos1.getTipohabito()))
+                    .collect(Collectors.toList());
+            if (personalizado.isEmpty()) {
+                throw new NoResultException("No se encontraron hábitos de Sistema.");
+            }
+            return personalizado;
+        }else {
+            throw new NoResultException("No se econontraron Habitos");
+        }
+    }
+
+    public List<Habitos> verHabitosGrupo() {
+        List<Habitos> habitosgrupo = habitosRepository.findAll();
+        if (!habitosgrupo.isEmpty()) {
+            List<Habitos> personalizado = habitosgrupo.stream()
+                    .filter(habitos1 -> "Grupo".equals(habitos1.getTipohabito()))
+                    .collect(Collectors.toList());
+            if (personalizado.isEmpty()) {
+                throw new NoResultException("No se encontraron hábitos de Grupo.");
+            }
+            return personalizado;
+        }else {
+            throw new NoResultException("No se encontraron Habitos");
+        }
+    }
+
+    public Habitos completarHabitos(Long idHabito) {
+        // Busca el hábito por su ID
+        Optional<Habitos> habitoOptional = habitosRepository.findById(idHabito);
+
+        if (habitoOptional.isPresent()) {
+            Habitos habito = habitoOptional.get();
+
+            // Verifica si el hábito ya está completado
+            if (!habito.isCompletadoHabito()) {
+                // Marca el hábito como completado
+                habito.setCompletadoHabito(true);
+
+                // Obtiene el título al que pertenece el hábito
+                Titulos titulo = habito.getTitulo();
+                Usuario usuarioxd = habito.getUsuariohabi();
+                if (titulo != null) {
+                    int puntosHabito = habito.getPuntosrecompensahabito();
+
+                    // Agrega los puntos del hábito al título
+                    usuarioxd.setPuntos(usuarioxd.getPuntos() + puntosHabito);
+                    titulo.setProgresotitulo(titulo.getProgresotitulo() + puntosHabito);
+
+                    // Actualiza el título en la base de datos
+                    titulosRepository.save(titulo);
+                }else {
+                    throw new NullPointerException("No contiene un titulo");
+                }
+
+                // Guarda el hábito actualizado en la base de datos
+                return habitosRepository.save(habito);
+            } else {
+                throw new EntityNotFoundException("El hábito ya está completado.");
+            }
+        } else {
+            throw new NoResultException("No se encontró el hábito por ID: " + idHabito);
+        }
+    }
+
+
+
+
+}

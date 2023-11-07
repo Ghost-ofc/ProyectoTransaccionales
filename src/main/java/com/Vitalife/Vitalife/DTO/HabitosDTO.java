@@ -1,0 +1,107 @@
+package com.Vitalife.Vitalife.DTO;
+
+import com.Vitalife.Vitalife.entity.Habitos;
+
+public class HabitosDTO {
+    private Long id_habito;
+    private String nombreHabito;
+    private Boolean completadoHabito;
+    private Integer puntosrecompensahabito;
+    private String tipohabito;
+    private UsuarioDTO usuariohabi;
+    private TituloDTO titulo;
+
+    public HabitosDTO(){
+
+    }
+
+    public HabitosDTO(Long id_habito, String nombreHabito, Boolean completadoHabito, Integer puntosrecompensahabito, String tipohabito, UsuarioDTO usuariohabi, TituloDTO titulo) {
+        this.id_habito = id_habito;
+        this.nombreHabito = nombreHabito;
+        this.completadoHabito = completadoHabito;
+        this.puntosrecompensahabito = puntosrecompensahabito;
+        this.tipohabito = tipohabito;
+        this.usuariohabi = usuariohabi;
+        this.titulo = titulo;
+    }
+
+
+    public Long getId_habito() {
+        return id_habito;
+    }
+
+    public void setId_habito(Long id_habito) {
+        this.id_habito = id_habito;
+    }
+
+    public String getNombreHabito() {
+        return nombreHabito;
+    }
+
+    public void setNombreHabito(String nombreHabito) {
+        this.nombreHabito = nombreHabito;
+    }
+
+    public Boolean getCompletadoHabito() {
+        return completadoHabito;
+    }
+
+    public void setCompletadoHabito(Boolean completadoHabito) {
+        this.completadoHabito = completadoHabito;
+    }
+
+    public Integer getPuntosrecompensahabito() {
+        return puntosrecompensahabito;
+    }
+
+    public void setPuntosrecompensahabito(Integer puntosrecompensahabito) {
+        this.puntosrecompensahabito = puntosrecompensahabito;
+    }
+
+    public String getTipohabito() {
+        return tipohabito;
+    }
+
+    public void setTipohabito(String tipohabito) {
+        this.tipohabito = tipohabito;
+    }
+
+    public UsuarioDTO getUsuariohabi() {
+        return usuariohabi;
+    }
+
+    public void setUsuariohabi(UsuarioDTO usuariohabi) {
+        this.usuariohabi = usuariohabi;
+    }
+
+    public TituloDTO getTitulo() {
+        return titulo;
+    }
+
+    public void setTitulo(TituloDTO titulo) {
+        this.titulo = titulo;
+    }
+
+
+    public HabitosDTO toDTO(Habitos habito) {
+        HabitosDTO dto = new HabitosDTO();
+        dto.setId_habito(this.id_habito);
+        dto.setNombreHabito(this.nombreHabito);
+        dto.setCompletadoHabito(this.completadoHabito);
+        dto.setPuntosrecompensahabito(this.puntosrecompensahabito);
+        dto.setTipohabito(this.tipohabito);
+
+        if (this.usuariohabi != null) {
+            UsuarioDTO usuarioDTO = new UsuarioDTO();
+            usuarioDTO.setId_usuario(this.usuariohabi.getId_usuario());
+            usuarioDTO.setUsuario(this.usuariohabi.getUsuario());
+            usuarioDTO.setCorreo(this.usuariohabi.getCorreo());
+            usuarioDTO.setContrasena(this.usuariohabi.getContrasena());
+            usuarioDTO.setPuntos(this.usuariohabi.getPuntos());
+            dto.setUsuariohabi(usuarioDTO);
+        }
+
+
+        return dto;
+    }
+}
