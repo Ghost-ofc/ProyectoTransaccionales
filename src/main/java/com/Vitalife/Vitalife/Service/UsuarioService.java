@@ -42,25 +42,6 @@ public class UsuarioService {
         return "Usuario registrado correctamente";
     }
 
-    public Usuario iniciarSesion(String usuario, String contrasena){
-        if(usuario == null || contrasena == null){
-            throw new IllegalStateException("Correo y contraseña erronea");
-        }
-        Optional<Usuario> existingUsersByNombreUsuario = usuarioRepository.findByUsuario(usuario);
-
-        if (!existingUsersByNombreUsuario.isEmpty()) {
-            Usuario usuarioxd = existingUsersByNombreUsuario.get();
-            if(usuarioxd.getContrasena().equals(contrasena)){
-                return usuarioxd;
-            }else{
-                throw new IllegalStateException("contraseña erronea");
-            }
-
-        }else {
-            throw new IllegalStateException("Correo y contraseña erronea");
-        }
-    }
-
     public Usuario modificarContrasena(Long id ,String contrasena) {
         Optional<Usuario> modificarcontr = usuarioRepository.findById(id);
 
@@ -96,6 +77,16 @@ public class UsuarioService {
             return si;
         }else {
             throw new NoResultException("Usuario no encontrado por ID: " + id);
+        }
+    }
+
+    public UsuarioDTO verTodosPerfil(){
+        List<Usuario> perfil = usuarioRepository.findAll();
+        if (!perfil.isEmpty()){
+            UsuarioDTO usuario = new UsuarioDTO().toDTO(perfil.get(0));
+            return usuario;
+        }else {
+            throw new NoResultException("No se encontraron usuarios");
         }
     }
 }
