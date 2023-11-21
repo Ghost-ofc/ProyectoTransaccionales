@@ -19,9 +19,9 @@ public class UsuarioService {
         this.usuarioRepository = usuarioRepository;
     }
 
-    public Usuario registrarUsuario(Usuario usuario) {
+    public String registrarUsuario(Usuario usuario) {
         List<Usuario> existingUsersByEmail = usuarioRepository.findByCorreo(usuario.getCorreo());
-        List<Usuario> existingUsersByNombreUsuario = usuarioRepository.findByUsuario(usuario.getUsuario());
+        Optional<Usuario> existingUsersByNombreUsuario = usuarioRepository.findByUsuario(usuario.getUsername());
 
         if (!existingUsersByEmail.isEmpty()) {
             throw new IllegalStateException("El correo ya está en uso.");
@@ -30,19 +30,26 @@ public class UsuarioService {
         if (!existingUsersByNombreUsuario.isEmpty()) {
             throw new IllegalStateException("El nombre de usuario ya está en uso.");
         }
-
-        if (usuario.getContrasena() != null && usuario.getContrasena().length() > 8 ) {
-            throw new IllegalStateException("La contraseña debe tener entre menos de 8 caracteres.");
+        if (usuario.getUsername() == null || usuario.getUsername().length() < 4) {
+            throw new IllegalStateException("El nombre de usuario debe tener al menos 3 caracteres.");
         }
 
-        return usuarioRepository.save(usuario);
+        if (usuario.getContrasena() != null && usuario.getContrasena().length() >= 8 ) {
+            throw new IllegalStateException("La contraseña debe tener mas de 7 caracteres.");
+        }
+
+        usuarioRepository.save(usuario);
+        return "Usuario registrado correctamente";
     }
 
     public Usuario iniciarSesion(String usuario, String contrasena){
-        List<Usuario> existingUsersByNombreUsuario = usuarioRepository.findByUsuario(usuario);
+        if(usuario == null || contrasena == null){
+            throw new IllegalStateException("Correo y contraseña erronea");
+        }
+        Optional<Usuario> existingUsersByNombreUsuario = usuarioRepository.findByUsuario(usuario);
 
         if (!existingUsersByNombreUsuario.isEmpty()) {
-            Usuario usuarioxd = existingUsersByNombreUsuario.get(0);
+            Usuario usuarioxd = existingUsersByNombreUsuario.get();
             if(usuarioxd.getContrasena().equals(contrasena)){
                 return usuarioxd;
             }else{
@@ -80,12 +87,13 @@ public class UsuarioService {
         }
     }
 
-    public Usuario verPuntos(Long id){
+    public Integer verPuntos(Long id){
         Optional<Usuario> puntos = usuarioRepository.findById(id);
 
         if (puntos.isPresent()){
             Usuario punto = puntos.get();
-            return punto;
+            Integer si = punto.getPuntos();
+            return si;
         }else {
             throw new NoResultException("Usuario no encontrado por ID: " + id);
         }

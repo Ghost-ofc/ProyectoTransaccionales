@@ -9,7 +9,7 @@ import java.util.List;
 public class UsuarioDTO {
     private Long id_usuario;
     private String usuario;
-    private String contrasena;
+
     private String correo;
     private Integer puntos;
     private List<HabitosDTO> usuariohabi;
@@ -17,10 +17,8 @@ public class UsuarioDTO {
     public UsuarioDTO(){
 
     }
-    public UsuarioDTO(Long id_usuario, String usuario, String contrasena, String correo, Integer puntos, List<HabitosDTO> usuariohabi) {
-        this.id_usuario = id_usuario;
+    public UsuarioDTO(Long id_usuario, String usuario, String correo, Integer puntos, List<HabitosDTO> usuariohabi) {
         this.usuario = usuario;
-        this.contrasena = contrasena;
         this.correo = correo;
         this.puntos = puntos;
         this.usuariohabi = usuariohabi;
@@ -34,7 +32,7 @@ public class UsuarioDTO {
         this.id_usuario = id_usuario;
     }
 
-    public String getUsuario() {
+    public String getUsername() {
         return usuario;
     }
 
@@ -42,13 +40,6 @@ public class UsuarioDTO {
         this.usuario = usuario;
     }
 
-    public String getContrasena() {
-        return contrasena;
-    }
-
-    public void setContrasena(String contrasena) {
-        this.contrasena = contrasena;
-    }
 
     public String getCorreo() {
         return correo;
@@ -76,9 +67,7 @@ public class UsuarioDTO {
 
     public UsuarioDTO toDTO(Usuario usuario) {
         UsuarioDTO dto = new UsuarioDTO();
-        dto.setId_usuario(usuario.getId_usuario());
-        dto.setUsuario(usuario.getUsuario());
-        dto.setContrasena(usuario.getContrasena());
+        dto.setUsuario(usuario.getUsername());
         dto.setCorreo(usuario.getCorreo());
         dto.setPuntos(usuario.getPuntos());
 

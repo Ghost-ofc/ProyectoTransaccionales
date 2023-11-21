@@ -93,10 +93,8 @@ public class HabitosDTO {
 
         if (this.usuariohabi != null) {
             UsuarioDTO usuarioDTO = new UsuarioDTO();
-            usuarioDTO.setId_usuario(this.usuariohabi.getId_usuario());
-            usuarioDTO.setUsuario(this.usuariohabi.getUsuario());
+            usuarioDTO.setUsuario(this.usuariohabi.getUsername());
             usuarioDTO.setCorreo(this.usuariohabi.getCorreo());
-            usuarioDTO.setContrasena(this.usuariohabi.getContrasena());
             usuarioDTO.setPuntos(this.usuariohabi.getPuntos());
             dto.setUsuariohabi(usuarioDTO);
         }
