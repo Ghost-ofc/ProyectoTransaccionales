@@ -33,9 +33,13 @@ public class Titulos {
     @JsonIgnoreProperties("titulo")
     private List<Habitos> habitos;
 
+    @OneToMany(mappedBy = "titulos", cascade = CascadeType.ALL, fetch = FetchType.LAZY) // Esto mapea la relación con la entidad Marcaje
+    @JsonIgnoreProperties("titulos")
+    private List<Marcaje> marcaje;
+
     public Titulos(){}
 
-    public Titulos(Long id_titulo, String nombretitulo, Integer puntosrequeridostitulo, String niveltitulo, Integer progresotitulo, Boolean obtenidotitulo, List<Habitos> habitos) {
+    public Titulos(Long id_titulo, String nombretitulo, Integer puntosrequeridostitulo, String niveltitulo, Integer progresotitulo, Boolean obtenidotitulo, List<Habitos> habitos, List<Marcaje> marcaje) {
         this.id_titulo = id_titulo;
         this.nombretitulo = nombretitulo;
         this.puntosrequeridostitulo = puntosrequeridostitulo;
@@ -43,6 +47,7 @@ public class Titulos {
         this.progresotitulo = progresotitulo;
         this.obtenidotitulo = obtenidotitulo;
         this.habitos = habitos;
+        this.marcaje = marcaje;
     }
 
     public Long getId_titulo() {
@@ -99,5 +104,13 @@ public class Titulos {
 
     public void setHabitos(List<Habitos> habitos) {
         this.habitos = habitos;
+    }
+
+    public List<Marcaje> getMarcaje() {
+        return marcaje;
+    }
+
+    public void setMarcaje(List<Marcaje> marcaje) {
+        this.marcaje = marcaje;
     }
 }

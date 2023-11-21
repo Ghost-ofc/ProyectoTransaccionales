@@ -42,6 +42,10 @@ public class Usuario implements UserDetails {
     @JsonIgnoreProperties("usuariohabi")
     private List<Habitos> usuariohabi;
 
+    @OneToMany(mappedBy = "usuariomar", cascade = CascadeType.ALL, fetch = FetchType.LAZY) // Esto mapea la relación con la entidad Marcaje
+    @JsonIgnoreProperties("usuariomar")
+    private List<Marcaje> marcaje;
+
     public Usuario(Long id_usuario, String usuario, String contrasena, String correo, Integer puntos, List<Habitos> usuariohabi) {
         this.id_usuario = id_usuario;
         this.usuario = usuario;

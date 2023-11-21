@@ -4,8 +4,11 @@ import com.Vitalife.Vitalife.DTO.HabitosDTO;
 import com.Vitalife.Vitalife.DTO.TituloDTO;
 import com.Vitalife.Vitalife.DTO.UsuarioDTO;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.Data;
+
+import java.util.List;
 
 
 @Entity
@@ -20,8 +23,6 @@ public class Habitos {
     private Long id_habito;
     @Column(name = "nombre")
     private String nombreHabito;
-    @Column(name = "completado")
-    private Boolean completadoHabito;
     @Column(name = "puntosrecompensa")
     private Integer puntosrecompensahabito;
     @Column(name = "tipo")
@@ -36,15 +37,19 @@ public class Habitos {
     @JsonIgnore
     private Usuario usuariohabi;
 
+    @OneToMany(mappedBy = "habitosmar", cascade = CascadeType.ALL, fetch = FetchType.LAZY) // Esto mapea la relación con la entidad Marcaje
+    @JsonIgnoreProperties("habitosmar")
+    private List<Marcaje> marcaje;
 
-    public Habitos(Long id_habito, String nombreHabito, Boolean completadoHabito, Integer puntosrecompensahabito, String tipohabito, Titulos titulo, Usuario usuariohabi) {
+
+    public Habitos(Long id_habito, String nombreHabito, Integer puntosrecompensahabito, String tipohabito, Titulos titulo, Usuario usuariohabi, List<Marcaje> marcaje) {
         this.id_habito = id_habito;
         this.nombreHabito = nombreHabito;
-        this.completadoHabito = completadoHabito;
         this.puntosrecompensahabito = puntosrecompensahabito;
         this.tipohabito = tipohabito;
         this.titulo = titulo;
         this.usuariohabi = usuariohabi;
+        this.marcaje = marcaje;
     }
 
     public Habitos() {
@@ -67,17 +72,6 @@ public class Habitos {
         this.nombreHabito = nombreHabito;
     }
 
-    public Boolean getCompletadoHabito() {
-        return completadoHabito;
-    }
-
-    public void setCompletadoHabito(Boolean completadoHabito) {
-        this.completadoHabito = completadoHabito;
-    }
-
-    public boolean isCompletadoHabito() {
-        return completadoHabito;
-    }
 
     public Integer getPuntosrecompensahabito() {
         return puntosrecompensahabito;
@@ -109,5 +103,11 @@ public class Habitos {
         this.usuariohabi = usuariohabi;
     }
 
+    public List<Marcaje> getMarcaje() {
+        return marcaje;
+    }
 
+    public void setMarcaje(List<Marcaje> marcaje) {
+        this.marcaje = marcaje;
+    }
 }

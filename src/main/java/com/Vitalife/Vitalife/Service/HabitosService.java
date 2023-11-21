@@ -2,8 +2,11 @@ package com.Vitalife.Vitalife.Service;
 
 import com.Vitalife.Vitalife.DTO.HabitosDTO;
 import com.Vitalife.Vitalife.Repository.HabitosRepository;
+import com.Vitalife.Vitalife.Repository.MarcajeRepository;
 import com.Vitalife.Vitalife.Repository.TitulosRepository;
+import com.Vitalife.Vitalife.Repository.UsuarioRepository;
 import com.Vitalife.Vitalife.entity.Habitos;
+import com.Vitalife.Vitalife.entity.Marcaje;
 import com.Vitalife.Vitalife.entity.Titulos;
 import com.Vitalife.Vitalife.entity.Usuario;
 import jakarta.persistence.EntityNotFoundException;
@@ -19,15 +22,19 @@ public class HabitosService {
 
     private final HabitosRepository habitosRepository;
     private final TitulosRepository titulosRepository;
+    private final MarcajeRepository marcajeRepository;
+    private final UsuarioRepository usuarioRepository;
 
-    public HabitosService(HabitosRepository habitosRepository, TitulosRepository titulosRepository) {
+    public HabitosService(HabitosRepository habitosRepository, TitulosRepository titulosRepository, MarcajeRepository marcajeRepository, UsuarioRepository usuarioRepository) {
         this.habitosRepository = habitosRepository;
         this.titulosRepository = titulosRepository;
+        this.marcajeRepository = marcajeRepository;
+        this.usuarioRepository = usuarioRepository;
     }
 
-    public Habitos agregarHabito(Habitos habitos) {
-        return habitosRepository.save(habitos);
-
+    public String agregarHabito(Habitos habitos) {
+        habitosRepository.save(habitos);
+        return "Habito agregado";
     }
 
     public List<Habitos> vetTodosHabitos(){
@@ -91,43 +98,7 @@ public class HabitosService {
         }
     }
 
-    public Habitos completarHabitos(Long idHabito) {
-        // Busca el hábito por su ID
-        Optional<Habitos> habitoOptional = habitosRepository.findById(idHabito);
 
-        if (habitoOptional.isPresent()) {
-            Habitos habito = habitoOptional.get();
-
-            // Verifica si el hábito ya está completado
-            if (!habito.isCompletadoHabito()) {
-                // Marca el hábito como completado
-                habito.setCompletadoHabito(true);
-
-                // Obtiene el título al que pertenece el hábito
-                Titulos titulo = habito.getTitulo();
-                Usuario usuarioxd = habito.getUsuariohabi();
-                if (titulo != null) {
-                    int puntosHabito = habito.getPuntosrecompensahabito();
-
-                    // Agrega los puntos del hábito al título
-                    usuarioxd.setPuntos(usuarioxd.getPuntos() + puntosHabito);
-                    titulo.setProgresotitulo(titulo.getProgresotitulo() + puntosHabito);
-
-                    // Actualiza el título en la base de datos
-                    titulosRepository.save(titulo);
-                }else {
-                    throw new NullPointerException("No contiene un titulo");
-                }
-
-                // Guarda el hábito actualizado en la base de datos
-                return habitosRepository.save(habito);
-            } else {
-                throw new EntityNotFoundException("El hábito ya está completado.");
-            }
-        } else {
-            throw new NoResultException("No se encontró el hábito por ID: " + idHabito);
-        }
-    }
 
 
 

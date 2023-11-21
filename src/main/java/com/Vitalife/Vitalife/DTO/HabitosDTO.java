@@ -91,13 +91,6 @@ public class HabitosDTO {
         dto.setPuntosrecompensahabito(this.puntosrecompensahabito);
         dto.setTipohabito(this.tipohabito);
 
-        if (this.usuariohabi != null) {
-            UsuarioDTO usuarioDTO = new UsuarioDTO();
-            usuarioDTO.setUsuario(this.usuariohabi.getUsername());
-            usuarioDTO.setCorreo(this.usuariohabi.getCorreo());
-            usuarioDTO.setPuntos(this.usuariohabi.getPuntos());
-            dto.setUsuariohabi(usuarioDTO);
-        }
 
 
         return dto;
