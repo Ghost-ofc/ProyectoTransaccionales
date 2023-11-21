@@ -11,11 +11,13 @@ public class HabitosDTO {
     private UsuarioDTO usuariohabi;
     private TituloDTO titulo;
 
+    private MarcajeDTO marcaje;
+
     public HabitosDTO(){
 
     }
 
-    public HabitosDTO(Long id_habito, String nombreHabito, Boolean completadoHabito, Integer puntosrecompensahabito, String tipohabito, UsuarioDTO usuariohabi, TituloDTO titulo) {
+    public HabitosDTO(Long id_habito, String nombreHabito, Boolean completadoHabito, Integer puntosrecompensahabito, String tipohabito, UsuarioDTO usuariohabi, TituloDTO titulo, MarcajeDTO marcaje) {
         this.id_habito = id_habito;
         this.nombreHabito = nombreHabito;
         this.completadoHabito = completadoHabito;
@@ -23,6 +25,7 @@ public class HabitosDTO {
         this.tipohabito = tipohabito;
         this.usuariohabi = usuariohabi;
         this.titulo = titulo;
+        this.marcaje = marcaje;
     }
 
 
@@ -82,6 +85,13 @@ public class HabitosDTO {
         this.titulo = titulo;
     }
 
+    public MarcajeDTO getMarcaje() {
+        return marcaje;
+    }
+
+    public void setMarcaje(MarcajeDTO marcaje) {
+        this.marcaje = marcaje;
+    }
 
     public HabitosDTO toDTO(Habitos habito) {
         HabitosDTO dto = new HabitosDTO();
@@ -90,7 +100,7 @@ public class HabitosDTO {
         dto.setCompletadoHabito(this.completadoHabito);
         dto.setPuntosrecompensahabito(this.puntosrecompensahabito);
         dto.setTipohabito(this.tipohabito);
-
+        dto.setMarcaje(this.marcaje);
 
 
         return dto;

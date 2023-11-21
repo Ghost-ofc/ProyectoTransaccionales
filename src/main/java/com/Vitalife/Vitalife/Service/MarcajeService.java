@@ -1,5 +1,6 @@
 package com.Vitalife.Vitalife.Service;
 
+import com.Vitalife.Vitalife.DTO.MarcajeDTO;
 import com.Vitalife.Vitalife.Repository.MarcajeRepository;
 import com.Vitalife.Vitalife.Repository.TitulosRepository;
 import com.Vitalife.Vitalife.Repository.UsuarioRepository;
@@ -10,7 +11,10 @@ import jakarta.persistence.EntityNotFoundException;
 import jakarta.persistence.NoResultException;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -72,6 +76,21 @@ public class MarcajeService {
         } else {
             throw new NoResultException("No se encontró el marcaje por ID: " + idMarcaje);
         }
+    }
+
+    public List<MarcajeDTO> verTodosMarcaje() {
+        List<Marcaje> marc = marcajeRepository.findAll();
+
+        // Crear una lista para almacenar los DTOs
+        List<MarcajeDTO> marcajeDTOList = new ArrayList<>();
+
+        // Iterar sobre la lista de Marcaje y convertir cada elemento a MarcajeDTO
+        for (Marcaje marcaje : marc) {
+            MarcajeDTO marcajeDTO = new MarcajeDTO().convertToDTO(marcaje);
+            marcajeDTOList.add(marcajeDTO);
+        }
+
+        return marcajeDTOList;
     }
 
 }
