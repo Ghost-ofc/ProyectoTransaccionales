@@ -95,13 +95,10 @@ public class HabitosDTO {
 
     public HabitosDTO toDTO(Habitos habito) {
         HabitosDTO dto = new HabitosDTO();
-        dto.setId_habito(this.id_habito);
-        dto.setNombreHabito(this.nombreHabito);
-        dto.setCompletadoHabito(this.completadoHabito);
-        dto.setPuntosrecompensahabito(this.puntosrecompensahabito);
-        dto.setTipohabito(this.tipohabito);
-        dto.setMarcaje(this.marcaje);
-
+        dto.setId_habito(habito.getId_habito());
+        dto.setNombreHabito(habito.getNombreHabito());
+        dto.setPuntosrecompensahabito(habito.getPuntosrecompensahabito());
+        dto.setTipohabito(habito.getTipohabito());
 
         return dto;
     }
