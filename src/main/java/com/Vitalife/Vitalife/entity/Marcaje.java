@@ -37,16 +37,21 @@ public class Marcaje {
     @JsonIgnore
     private Titulos titulos;
 
+    @ManyToOne
+    @JoinColumn(name = "informacionnutricional_id_informacion") // Esto mapea la relación con la entidad InformacionNutricional
+    @JsonIgnore
+    private InformacionNutricional marcajeinfo;
 
     public Marcaje() {
     }
 
-    public Marcaje(Long id_marcaje, Boolean estado, Habitos habitosmar, Usuario usuariomar, Titulos titulos) {
+    public Marcaje(Long id_marcaje, Boolean estado, Habitos habitosmar, Usuario usuariomar, Titulos titulos, InformacionNutricional marcajeinfo) {
         this.id_marcaje = id_marcaje;
         this.estado = estado;
         this.habitosmar = habitosmar;
         this.usuariomar = usuariomar;
         this.titulos = titulos;
+        this.marcajeinfo = marcajeinfo;
     }
 
     public boolean isCompletado() {
@@ -91,5 +96,13 @@ public class Marcaje {
 
     public void setTitulos(Titulos titulos) {
         this.titulos = titulos;
+    }
+
+    public InformacionNutricional getInformacionnutricional() {
+        return marcajeinfo;
+    }
+
+    public void setInformacionnutricional(InformacionNutricional marcajeinfo) {
+        this.marcajeinfo = marcajeinfo;
     }
 }
