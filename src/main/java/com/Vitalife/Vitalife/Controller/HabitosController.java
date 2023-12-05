@@ -25,7 +25,7 @@ public class HabitosController {
     @PostMapping("/agregar")
     public ResponseEntity<?> agregaarHabito(@RequestBody Habitos habitos){
         try {
-            Habitos agg = habitosService.agregarHabito(habitos);
+            String agg = habitosService.agregarHabito(habitos);
             return new  ResponseEntity<>(agg, HttpStatus.OK);
         }catch (IllegalArgumentException e){
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
@@ -78,18 +78,6 @@ public class HabitosController {
         }
     }
 
-    @PostMapping("/completarhabito")
-    public ResponseEntity<?> completarHabito(@RequestParam Long idHabito){
-        try {
-            Habitos habitoCompletado = habitosService.completarHabitos(idHabito);
-            return new ResponseEntity<>(habitoCompletado, HttpStatus.OK);
-        }catch (NoResultException e){
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
-        }catch (EntityNotFoundException e){
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.CONFLICT);
-        }catch (NullPointerException e){
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
-        }
-    }
+
 
 }

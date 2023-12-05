@@ -67,6 +67,7 @@ public class UsuarioDTO {
 
     public UsuarioDTO toDTO(Usuario usuario) {
         UsuarioDTO dto = new UsuarioDTO();
+        dto.setId_usuario(usuario.getId_usuario());
         dto.setUsuario(usuario.getUsername());
         dto.setCorreo(usuario.getCorreo());
         dto.setPuntos(usuario.getPuntos());

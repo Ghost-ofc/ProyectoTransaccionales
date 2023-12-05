@@ -34,32 +34,13 @@ public class UsuarioService {
             throw new IllegalStateException("El nombre de usuario debe tener al menos 3 caracteres.");
         }
 
-        if (usuario.getContrasena() != null && usuario.getContrasena().length() >= 8 ) {
+        if (usuario.getContrasena() != null && usuario.getContrasena().length() <= 7 ) {
             throw new IllegalStateException("La contraseña debe tener mas de 7 caracteres.");
         }
 
         usuarioRepository.save(usuario);
-        return "Usuario registrado correctamente";
-    }
-
-    public Usuario iniciarSesion(String usuario, String contrasena){
-        if(usuario == null || contrasena == null){
-            throw new IllegalStateException("Correo y contraseña erronea");
-        }
-        Optional<Usuario> existingUsersByNombreUsuario = usuarioRepository.findByUsuario(usuario);
-
-        if (!existingUsersByNombreUsuario.isEmpty()) {
-            Usuario usuarioxd = existingUsersByNombreUsuario.get();
-            if(usuarioxd.getContrasena().equals(contrasena)){
-                return usuarioxd;
-            }else{
-                throw new IllegalStateException("contraseña erronea");
-            }
-
-        }else {
-            throw new IllegalStateException("Correo y contraseña erronea");
-        }
-    }
+        return "{\"success\": true, \"message\": \"Usuario registrado con éxito\"}";
+}
 
     public Usuario modificarContrasena(Long id ,String contrasena) {
         Optional<Usuario> modificarcontr = usuarioRepository.findById(id);
@@ -96,6 +77,16 @@ public class UsuarioService {
             return si;
         }else {
             throw new NoResultException("Usuario no encontrado por ID: " + id);
+        }
+    }
+
+    public UsuarioDTO verTodosPerfil(){
+        List<Usuario> perfil = usuarioRepository.findAll();
+        if (!perfil.isEmpty()){
+            UsuarioDTO usuario = new UsuarioDTO().toDTO(perfil.get(0));
+            return usuario;
+        }else {
+            throw new NoResultException("No se encontraron usuarios");
         }
     }
 }

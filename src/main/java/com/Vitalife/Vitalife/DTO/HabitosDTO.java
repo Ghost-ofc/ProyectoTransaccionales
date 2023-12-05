@@ -11,11 +11,13 @@ public class HabitosDTO {
     private UsuarioDTO usuariohabi;
     private TituloDTO titulo;
 
+    private MarcajeDTO marcaje;
+
     public HabitosDTO(){
 
     }
 
-    public HabitosDTO(Long id_habito, String nombreHabito, Boolean completadoHabito, Integer puntosrecompensahabito, String tipohabito, UsuarioDTO usuariohabi, TituloDTO titulo) {
+    public HabitosDTO(Long id_habito, String nombreHabito, Boolean completadoHabito, Integer puntosrecompensahabito, String tipohabito, UsuarioDTO usuariohabi, TituloDTO titulo, MarcajeDTO marcaje) {
         this.id_habito = id_habito;
         this.nombreHabito = nombreHabito;
         this.completadoHabito = completadoHabito;
@@ -23,6 +25,7 @@ public class HabitosDTO {
         this.tipohabito = tipohabito;
         this.usuariohabi = usuariohabi;
         this.titulo = titulo;
+        this.marcaje = marcaje;
     }
 
 
@@ -82,23 +85,20 @@ public class HabitosDTO {
         this.titulo = titulo;
     }
 
+    public MarcajeDTO getMarcaje() {
+        return marcaje;
+    }
+
+    public void setMarcaje(MarcajeDTO marcaje) {
+        this.marcaje = marcaje;
+    }
 
     public HabitosDTO toDTO(Habitos habito) {
         HabitosDTO dto = new HabitosDTO();
-        dto.setId_habito(this.id_habito);
-        dto.setNombreHabito(this.nombreHabito);
-        dto.setCompletadoHabito(this.completadoHabito);
-        dto.setPuntosrecompensahabito(this.puntosrecompensahabito);
-        dto.setTipohabito(this.tipohabito);
-
-        if (this.usuariohabi != null) {
-            UsuarioDTO usuarioDTO = new UsuarioDTO();
-            usuarioDTO.setUsuario(this.usuariohabi.getUsername());
-            usuarioDTO.setCorreo(this.usuariohabi.getCorreo());
-            usuarioDTO.setPuntos(this.usuariohabi.getPuntos());
-            dto.setUsuariohabi(usuarioDTO);
-        }
-
+        dto.setId_habito(habito.getId_habito());
+        dto.setNombreHabito(habito.getNombreHabito());
+        dto.setPuntosrecompensahabito(habito.getPuntosrecompensahabito());
+        dto.setTipohabito(habito.getTipohabito());
 
         return dto;
     }
