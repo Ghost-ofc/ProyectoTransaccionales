@@ -48,7 +48,7 @@ public class UsuarioController {
     }
 
     @PostMapping("/login")
-    LoginResponse login(@RequestBody LoginRequest loginRequest) throws Exception {
+    public LoginResponse login(@RequestBody LoginRequest loginRequest) throws Exception {
         Optional<Usuario> user = usuarioRepository.findByUsuario(loginRequest.getUsername());
         System.out.println(user);
         if(user.isPresent()){
