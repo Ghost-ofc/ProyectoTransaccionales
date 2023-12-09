@@ -74,10 +74,10 @@ public class UsuarioController {
         }
     }
 
-    @GetMapping("/verperfil/{id}")
-    public ResponseEntity<?> verPerfil(@PathVariable Long id){
+    @GetMapping("/verperfil/{usuario}")
+    public ResponseEntity<?> verPerfil(@PathVariable String usuario){
         try {
-            UsuarioDTO perfil = usuarioService.verPerfil(id);
+            UsuarioDTO perfil = usuarioService.verPerfil(usuario);
             return new ResponseEntity<>(perfil, HttpStatus.OK);
         }catch (NoResultException e){
             return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);

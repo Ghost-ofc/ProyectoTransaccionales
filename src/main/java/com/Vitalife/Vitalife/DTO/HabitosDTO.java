@@ -1,6 +1,10 @@
 package com.Vitalife.Vitalife.DTO;
 
 import com.Vitalife.Vitalife.entity.Habitos;
+import com.Vitalife.Vitalife.entity.Marcaje;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class HabitosDTO {
     private Long id_habito;
@@ -99,6 +103,18 @@ public class HabitosDTO {
         dto.setNombreHabito(habito.getNombreHabito());
         dto.setPuntosrecompensahabito(habito.getPuntosrecompensahabito());
         dto.setTipohabito(habito.getTipohabito());
+
+        if (habito.getMarcaje() != null && !habito.getMarcaje().isEmpty()) {
+            List<MarcajeDTO> marcajeDTOList = new ArrayList<>();
+            for (Marcaje marcaje : habito.getMarcaje()) {
+                MarcajeDTO marcajeDTO = new MarcajeDTO();
+                marcajeDTO.setId_marcaje(marcaje.getId_marcaje());
+                marcajeDTO.setEstado(marcaje.getEstado());
+                marcajeDTOList.add(marcajeDTO);
+            }
+            dto.setMarcaje(marcajeDTOList.get(0));
+        }
+
 
         return dto;
     }

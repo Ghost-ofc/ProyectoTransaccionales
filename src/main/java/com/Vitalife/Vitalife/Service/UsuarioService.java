@@ -34,13 +34,19 @@ public class UsuarioService {
             throw new IllegalStateException("El nombre de usuario debe tener al menos 3 caracteres.");
         }
 
+
         if (usuario.getContrasena() != null && usuario.getContrasena().length() <= 7 ) {
+
             throw new IllegalStateException("La contraseña debe tener mas de 7 caracteres.");
         }
 
         usuarioRepository.save(usuario);
         return "{\"success\": true, \"message\": \"Usuario registrado con éxito\"}";
+
+    }
+
 }
+
 
     public Usuario modificarContrasena(Long id ,String contrasena) {
         Optional<Usuario> modificarcontr = usuarioRepository.findById(id);
@@ -57,14 +63,14 @@ public class UsuarioService {
         }
     }
 
-    public UsuarioDTO verPerfil(Long id){
-        Optional<Usuario> perfil = usuarioRepository.findById(id);
+    public UsuarioDTO verPerfil(String usuario){
+        Optional<Usuario> perfil = usuarioRepository.findByUsuario(usuario);
 
         if(perfil.isPresent()){
-            UsuarioDTO usuario = new UsuarioDTO().toDTO(perfil.get());
-            return usuario;
+            UsuarioDTO usuario1 = new UsuarioDTO().toDTO(perfil.get());
+            return usuario1;
         }else {
-            throw new NoResultException("Usuario no encontrado por ID: " + id);
+            throw new NoResultException("Usuario no encontrado por ID: " + usuario);
         }
     }
 

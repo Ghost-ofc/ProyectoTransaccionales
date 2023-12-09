@@ -24,17 +24,14 @@ public class Marcaje {
 
     @ManyToOne
     @JoinColumn(name = "habitos_id_habitos") // Esto mapea la relación con la entidad Usuario
-    @JsonIgnore
-    private Habitos habitosmar;
+    private Habitos habitomarcaje;
 
     @ManyToOne
     @JoinColumn(name = "usuario_id_usuario") // Esto mapea la relación con la entidad Usuario
-    @JsonIgnore
     private Usuario usuariomar;
 
     @ManyToOne
     @JoinColumn(name = "titulos_id_titulo") // Esto mapea la relación con la entidad Titulos
-    @JsonIgnore
     private Titulos titulos;
 
     @ManyToOne
@@ -45,10 +42,12 @@ public class Marcaje {
     public Marcaje() {
     }
 
+
     public Marcaje(Long id_marcaje, Boolean estado, Habitos habitosmar, Usuario usuariomar, Titulos titulos, InformacionNutricional marcajeinfo) {
+
         this.id_marcaje = id_marcaje;
         this.estado = estado;
-        this.habitosmar = habitosmar;
+        this.habitomarcaje = habitomarcaje;
         this.usuariomar = usuariomar;
         this.titulos = titulos;
         this.marcajeinfo = marcajeinfo;
@@ -75,11 +74,11 @@ public class Marcaje {
     }
 
     public Habitos getHabitosmar() {
-        return habitosmar;
+        return habitomarcaje;
     }
 
     public void setHabitosmar(Habitos habitosmar) {
-        this.habitosmar = habitosmar;
+        this.habitomarcaje = habitosmar;
     }
 
     public Usuario getUsuariomar() {
