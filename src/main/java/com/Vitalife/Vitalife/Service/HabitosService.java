@@ -37,6 +37,7 @@ public class HabitosService {
         return "Habito agregado";
     }
 
+
     public List<Habitos> vetTodosHabitos(){
         List<Habitos> verto = habitosRepository.findAll();
         return verto;
