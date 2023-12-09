@@ -34,7 +34,7 @@ public class HabitosService {
 
     public String agregarHabito(Habitos habitos) {
         habitosRepository.save(habitos);
-        return "Habito agregado";
+        return "{\"success\": true, \"message\": \"Habito agregado\"}";
     }
 
     public List<Habitos> vetTodosHabitos(){

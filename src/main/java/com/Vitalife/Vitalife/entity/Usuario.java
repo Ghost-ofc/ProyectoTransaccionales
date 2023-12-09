@@ -46,14 +46,23 @@ public class Usuario implements UserDetails {
     @JsonIgnoreProperties("usuariomar")
     private List<Marcaje> marcaje;
 
+
     public Usuario(Long id_usuario, String usuario, String contrasena, String correo, Integer puntos, List<Habitos> habitos, List<Marcaje> marcaje) {
+    @ManyToOne
+    @JoinColumn(name = "informacionnutricional_id_informacion") // Esto mapea la relación con la entidad Informacion
+    @JsonIgnoreProperties("usuarioinfo")
+    private InformacionNutricional usuarioinfo;
+
+
+    public Usuario(Long id_usuario, String usuario, String contrasena, String correo, Integer puntos, List<Habitos> usuariohabi, List<Marcaje> marcaje, InformacionNutricional usuarioinfo) {
         this.id_usuario = id_usuario;
         this.usuario = usuario;
         this.contrasena = contrasena;
         this.correo = correo;
         this.puntos = puntos;
-        this.habitos = habitos;
+        this.usuariohabi = usuariohabi;
         this.marcaje = marcaje;
+        this.usuarioinfo = usuarioinfo;
     }
 
     public Usuario() {
@@ -149,5 +158,15 @@ public class Usuario implements UserDetails {
 
     public void setMarcaje(List<Marcaje> marcaje) {
         this.marcaje = marcaje;
+
+
+
+    public InformacionNutricional getUsuarioinfo() {
+        return usuarioinfo;
+    }
+
+    public void setUsuarioinfo(InformacionNutricional usuarioinfo) {
+        this.usuarioinfo = usuarioinfo;
+
     }
 }

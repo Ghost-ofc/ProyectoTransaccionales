@@ -34,13 +34,19 @@ public class UsuarioService {
             throw new IllegalStateException("El nombre de usuario debe tener al menos 3 caracteres.");
         }
 
-        if (usuario.getContrasena() != null && usuario.getContrasena().length() <=7 ) {
+
+        if (usuario.getContrasena() != null && usuario.getContrasena().length() <= 7 ) {
+
             throw new IllegalStateException("La contraseña debe tener mas de 7 caracteres.");
         }
 
         usuarioRepository.save(usuario);
         return "{\"success\": true, \"message\": \"Usuario registrado con éxito\"}";
+
     }
+
+}
+
 
     public Usuario modificarContrasena(Long id ,String contrasena) {
         Optional<Usuario> modificarcontr = usuarioRepository.findById(id);
