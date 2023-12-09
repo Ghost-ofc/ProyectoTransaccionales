@@ -21,7 +21,7 @@ import java.util.List;
 @Entity
 @Table(name = "usuario")
 @Data
-@JsonPropertyOrder({"id_usuario", "usuario", "contrasena", "correo", "puntos", "usuariohabi"})
+
 public class Usuario implements UserDetails {
 
     @Id
@@ -40,21 +40,21 @@ public class Usuario implements UserDetails {
 
     @OneToMany(mappedBy = "usuariohabi", cascade = CascadeType.ALL, fetch = FetchType.LAZY) // Esto mapea la relación con la entidad Habito
     @JsonIgnoreProperties("usuariohabi")
-    private List<Habitos> usuariohabi;
+    private List<Habitos> habitos;
 
     @OneToMany(mappedBy = "usuariomar", cascade = CascadeType.ALL, fetch = FetchType.LAZY) // Esto mapea la relación con la entidad Marcaje
     @JsonIgnoreProperties("usuariomar")
     private List<Marcaje> marcaje;
 
-    public Usuario(Long id_usuario, String usuario, String contrasena, String correo, Integer puntos, List<Habitos> usuariohabi) {
+    public Usuario(Long id_usuario, String usuario, String contrasena, String correo, Integer puntos, List<Habitos> habitos, List<Marcaje> marcaje) {
         this.id_usuario = id_usuario;
         this.usuario = usuario;
         this.contrasena = contrasena;
         this.correo = correo;
         this.puntos = puntos;
-        this.usuariohabi = usuariohabi;
+        this.habitos = habitos;
+        this.marcaje = marcaje;
     }
-
 
     public Usuario() {
 
@@ -132,12 +132,22 @@ public class Usuario implements UserDetails {
     }
 
     public List<Habitos> getUsuariohabi() {
-        return usuariohabi;
+        return habitos;
     }
 
-    public void setUsuariohabi(List<Habitos> usuariohabi) {
-        this.usuariohabi = usuariohabi;
+    public void setUsuariohabi(List<Habitos> habitos) {
+        this.habitos = habitos;
     }
 
+    public String getUsuario() {
+        return usuario;
+    }
 
+    public List<Marcaje> getMarcaje() {
+        return marcaje;
+    }
+
+    public void setMarcaje(List<Marcaje> marcaje) {
+        this.marcaje = marcaje;
+    }
 }

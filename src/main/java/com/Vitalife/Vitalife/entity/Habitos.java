@@ -34,11 +34,10 @@ public class Habitos {
 
     @ManyToOne
     @JoinColumn(name = "usuario_id_usuario") // Cambiado a "usuario_id_usuario"
-    @JsonIgnore
     private Usuario usuariohabi;
 
-    @OneToMany(mappedBy = "habitosmar", cascade = CascadeType.ALL, fetch = FetchType.LAZY) // Esto mapea la relación con la entidad Marcaje
-    @JsonIgnoreProperties("habitosmar")
+    @OneToMany(mappedBy = "habitomarcaje", cascade = CascadeType.ALL, fetch = FetchType.LAZY) // Esto mapea la relación con la entidad Marcaje
+    @JsonIgnoreProperties("habitomarcaje")
     private List<Marcaje> marcaje;
 
 
