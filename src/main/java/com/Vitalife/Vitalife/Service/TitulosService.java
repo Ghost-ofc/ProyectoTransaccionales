@@ -28,11 +28,10 @@ public class TitulosService {
         }
     }
 
-    public Titulos verTitulos(){
+    public List<Titulos> verTitulos(){
         List<Titulos> titu = titulosRepository.findAll();
         if (!titu.isEmpty()) {
-            Titulos tituxd = titu.get(0);
-            return tituxd;
+            return titu;
         }else {
             throw new NoResultException("No se econontraron Habitos");
         }
