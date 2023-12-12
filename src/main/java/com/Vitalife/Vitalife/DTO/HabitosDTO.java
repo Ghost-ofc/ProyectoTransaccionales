@@ -103,6 +103,7 @@ public class HabitosDTO {
         dto.setNombreHabito(habito.getNombreHabito());
         dto.setPuntosrecompensahabito(habito.getPuntosrecompensahabito());
         dto.setTipohabito(habito.getTipohabito());
+
         if (habito.getMarcaje() != null && !habito.getMarcaje().isEmpty()) {
             List<MarcajeDTO> marcajeDTOList = new ArrayList<>();
             for (Marcaje marcaje : habito.getMarcaje()) {

@@ -35,7 +35,7 @@ public class HabitosService {
 
     public String agregarHabito(Habitos habitos) {
         habitosRepository.save(habitos);
-        return "Habito agregado";
+        return "{\"success\": true, \"message\": \"Habito agregado\"}";
     }
 
     public String agregarHabitoSistema(String nombre, String tipohabito, Integer puntosrecompensa, Titulos titulo, List<Marcaje> marcaje) {
