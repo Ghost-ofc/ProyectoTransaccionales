@@ -1,6 +1,7 @@
 package com.Vitalife.Vitalife.Service;
 
 import com.Vitalife.Vitalife.DTO.HabitosDTO;
+import com.Vitalife.Vitalife.DTO.MarcajeDTO;
 import com.Vitalife.Vitalife.Repository.HabitosRepository;
 import com.Vitalife.Vitalife.Repository.MarcajeRepository;
 import com.Vitalife.Vitalife.Repository.TitulosRepository;
@@ -34,6 +35,18 @@ public class HabitosService {
 
     public String agregarHabito(Habitos habitos) {
         habitosRepository.save(habitos);
+        return "Habito agregado";
+    }
+
+    public String agregarHabitoSistema(String nombre, String tipohabito, Integer puntosrecompensa, Titulos titulo, List<Marcaje> marcaje) {
+        Habitos habitos = new Habitos();
+        habitos.setNombreHabito(nombre);
+        habitos.setTipohabito(tipohabito);
+        habitos.setPuntosrecompensahabito(puntosrecompensa);
+        habitos.setTitulo(titulo);
+        habitos.setMarcaje(marcaje);
+        habitosRepository.save(habitos);
+
         return "Habito agregado";
     }
 
